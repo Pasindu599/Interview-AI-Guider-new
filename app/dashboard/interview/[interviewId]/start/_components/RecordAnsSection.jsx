@@ -72,6 +72,7 @@ function RecordAnsSection({
   const startStopRecording = async () => {
     if (isRecording) {
       stopSpeechToText();
+      console.log(userAnswer, "userAnswer in startStopRecording");
 
       // if (userAnswer) {
       //   updateUserAnswer();
