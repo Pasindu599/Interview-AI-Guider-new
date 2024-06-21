@@ -54,6 +54,7 @@ export default function Home() {
           interviews begins. Our platform offers realistic interview simulations
           designed to mirror real-world scenarios used by top tech companies.
         </span>
+
         <img
           src="https://cdn-dkeek.nitrocdn.com/JJJmSmfNOVFIMRLxeOafUbjMfnGEpNvR/assets/static/optimized/rev-ccc93af/wp-content/uploads/2021/08/undraw_Working_re_ddwy-1-1024x608.png"
           alt="home"

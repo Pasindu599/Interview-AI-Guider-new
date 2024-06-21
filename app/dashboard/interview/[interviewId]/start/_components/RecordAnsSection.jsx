@@ -72,19 +72,20 @@ function RecordAnsSection({
   const startStopRecording = async () => {
     if (isRecording) {
       stopSpeechToText();
-      if (!userAnswer) {
-        toast.error("Please record your answer before going to next question");
-      }
+
+      // if (userAnswer) {
+      //   updateUserAnswer();
+      // }
     } else {
       startSpeechToText();
+      console.log(userAnswer, "userAnswer in startStopRecording");
       toast("Recording started");
     }
   };
 
   useEffect(() => {
     results.map((result) => {
-      setUserAnswer(result?.transcript);
-      // console.log(result?.transcript, "result?.transcript");
+      setUserAnswer((prev) => prev + result.transcript);
     });
   }, [results]);
 
