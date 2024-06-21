@@ -33,12 +33,20 @@ function InterviewsList() {
     <div>
       <h2 className="font-bold text-lg">Previous Interviews</h2>
       <h3 className="text-sm text-gray-500">List of all interviews</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
-        {interviewsList &&
-          interviewsList.map((item, index) => (
-            <InterviewItemCard key={index} interview={item} />
-          ))}
-      </div>
+      {interviewsList.length === 0 && (
+        <h2 className="text-lg font-semibold text-red-500 my-3 ">
+          No interviews available
+        </h2>
+      )}
+
+      {interviewsList.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-3">
+          {interviewsList &&
+            interviewsList.map((item, index) => (
+              <InterviewItemCard key={index} interview={item} />
+            ))}
+        </div>
+      )}
     </div>
   );
 }
