@@ -20,6 +20,8 @@ function RecordAnsSection({
   const [userAnswer, setUserAnswer] = React.useState("");
   const { user } = useUser();
   const [loading, setLoading] = React.useState(false);
+  const [feedback, setFeedback] = React.useState([]);
+  const [resultsList, setResultsList] = React.useState([]);
   const {
     error,
     interimResult,
@@ -30,6 +32,7 @@ function RecordAnsSection({
   } = useSpeechToText({
     continuous: true,
     useLegacyResults: false,
+    onResult: (result) => setResultsList((prev) => [...prev, result]),
   });
 
   const updateUserAnswer = async () => {
@@ -39,7 +42,7 @@ function RecordAnsSection({
       interviewQuestions[activeQuestion]?.Question +
       ", Answer : " +
       userAnswer +
-      ", Depending on question and user answer for give interview question please give us  rating for and feedback as area of imporvement if any in just three to five lines to imporve it in JSON format with rating field and feedback field";
+      ", Depending on question and user answer for give interview question please give us  rating for and feedback as area of imporvement if any in just three to five lines to imporve it in only JSON format with rating field and feedback field.As like this {ratings : 2 , feedback: You are good.}. Only give json formal answer.";
     const result = await chatSession.sendMessage(feedbackPrompt);
     const mockJsonResponse = result.response
       .text()
@@ -48,6 +51,8 @@ function RecordAnsSection({
     console.log(mockJsonResponse, "mockJsonResponse");
 
     const jsonFeeedbackResponse = JSON.parse(mockJsonResponse);
+    setFeedback(jsonFeeedbackResponse);
+    console.log(feedback, "feedback");
 
     const res = await db.insert(UserAnswer).values({
       question:
@@ -72,13 +77,9 @@ function RecordAnsSection({
   const startStopRecording = async () => {
     if (isRecording) {
       stopSpeechToText();
-      console.log(userAnswer, "userAnswer in startStopRecording");
-
-      // if (userAnswer) {
-      //   updateUserAnswer();
-      // }
+      setResultsList([]);
     } else {
-      startSpeechToText();
+      await startSpeechToText();
       console.log(userAnswer, "userAnswer in startStopRecording");
       toast("Recording started");
     }
@@ -86,8 +87,10 @@ function RecordAnsSection({
 
   useEffect(() => {
     results.map((result) => {
-      setUserAnswer((prev) => prev + result.transcript);
+      setUserAnswer(() => result.transcript);
     });
+    console.log(results, "results");
+    console.log(userAnswer, "userAnswer");
   }, [results]);
 
   useEffect(() => {
@@ -130,9 +133,9 @@ function RecordAnsSection({
         )}
       </button>
       <h2 className="text-red-800 bg-red-200 p-2 mt-1 rounded-md border font-bold text-sm">
-        Please go to next question after recording your answer for this
-        question. Go through all questions and record your answers.That is the
-        only way to get feedback for your interview.
+        After recording your answer, click on next question button to stop
+        recording and get feedback. Go throught all questions to complete the
+        mock.
       </h2>
     </div>
   );
