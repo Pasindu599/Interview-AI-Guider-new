@@ -63,7 +63,7 @@ function RecordAnsSection({
         interviewQuestions[activeQuestion]?.Answer ||
         interviewQuestions[activeQuestion]?.answer,
       feedback: jsonFeeedbackResponse?.feedback,
-      rating: jsonFeeedbackResponse?.rating,
+      rating: jsonFeeedbackResponse?.ratings,
       userEmail: user?.primaryEmailAddress?.emailAddress,
       createdAt: moment().format("YYYY-MM-DD"),
       mockIdRef: interviewData?.mockInterviewId,

@@ -51,7 +51,8 @@ function Feedback({ params }) {
               {(() => {
                 let sum = 0;
                 feedbackList.forEach((item) => {
-                  if (item.rating !== "N/A") sum += parseInt(item.rating, 10);
+                  if (item.rating !== "N/A" && item.rating)
+                    sum += parseInt(item.rating, 10);
                 });
                 return (sum / feedbackList.length).toFixed(2); // Assuming you want to format the average to 2 decimal places
               })()}
