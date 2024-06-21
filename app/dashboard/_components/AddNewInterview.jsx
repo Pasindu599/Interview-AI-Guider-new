@@ -22,7 +22,7 @@ function AddNewInterview() {
       </div>
 
       <div
-        className={`top-[20%] left-1/2 transform -translate-x-1/2 w-[50%] z-50 p-10 rounded-md shadow-md ${
+        className={`top-[20%] left-1/2 transform -translate-x-1/2 w-[80%] md:w-[50%] z-50 p-10 rounded-md shadow-md ${
           openDialog ? `absolute` : `hidden`
         } bg-blue-100`}
       >
@@ -133,7 +133,7 @@ function Header({ openDialog, setOpenDialog }) {
   };
   return (
     <div>
-      <div className="flex justify-between items-center  ">
+      <div className="flex justify-between items-center w-full ">
         <span className="font-bold text-xl">
           Tell us more about your interview
         </span>
@@ -185,10 +185,10 @@ function Header({ openDialog, setOpenDialog }) {
             />
           </div>
         </div>
-        <div className="flex gap-3 items-center justify-end flex-grow">
+        <div className="flex gap-2 items-center justify-between md:justify-end flex-grow">
           <button
             type="button"
-            className=" p-2 bg-blue-800  rounded-lg text-white hover:bg-blue-950 text-center hover:scale-105"
+            className=" p-2 bg-blue-800  rounded-lg text-white hover:bg-blue-950 text-center hover:scale-105 w-full"
             onClick={() => setOpenDialog(false)}
           >
             Cancel
@@ -196,15 +196,15 @@ function Header({ openDialog, setOpenDialog }) {
           <button
             disabled={isLoading}
             type="submit"
-            className=" p-2 bg-blue-800  rounded-lg text-white hover:bg-blue-950 text-center hover:scale-105"
+            className=" p-2 bg-blue-800  rounded-lg text-white hover:bg-blue-950 text-center hover:scale-105 w-full"
           >
             {isLoading ? (
-              <div className="flex gap-2 opacity-50 flex-row">
+              <div className="flex gap-1 opacity-50 flex-row">
                 <LoaderCircle className="animate-spin flex" size={20} />
                 <span>Generating</span>
               </div>
             ) : (
-              "Start Interview"
+              "Start"
             )}
           </button>
         </div>

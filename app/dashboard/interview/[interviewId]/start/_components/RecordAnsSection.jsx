@@ -109,7 +109,7 @@ function RecordAnsSection({
         />
       </div>
       <button
-        className="bg-blue-900 text-white my-10 p-3 rounded-lg hover:bg-slate-500 "
+        className="bg-blue-900 text-white mt-10 p-3 rounded-lg hover:bg-slate-500 "
         onClick={startStopRecording}
       >
         {isRecording ? (

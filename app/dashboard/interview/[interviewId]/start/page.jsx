@@ -30,7 +30,7 @@ function StartInterview({ params }) {
 
   return (
     <div>
-      <div className="grid grid-col-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-col-1 md:grid-cols-2 gap-1 md:gap-10">
         {/* Questions */}
         <QuestionsSectoin
           interviewQuestions={interviewQuestions}
@@ -43,7 +43,8 @@ function StartInterview({ params }) {
           interviewData={interviewData}
         />
       </div>
-      <div className="flex justify-end gap-6">
+
+      <div className="flex justify-end gap-6 m-5">
         {activeQuestion > 0 && (
           <button
             className="bg-blue-900 text-white p-3 rounded-lg hover:bg-slate-500 "
