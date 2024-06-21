@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function AddNewInterview() {
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -128,6 +129,8 @@ function Header({ openDialog, setOpenDialog }) {
 
     if (resp) {
       setOpenDialog(false);
+      toast.success("Interview created successfully");
+
       router.push(`/dashboard/interview/${resp[0]?.mockId}`);
     }
   };

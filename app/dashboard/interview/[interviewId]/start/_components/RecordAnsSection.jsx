@@ -10,6 +10,7 @@ import { db } from "../../../../../../utils/db";
 import { UserAnswer } from "../../../../../../utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
+import { toast } from "sonner";
 
 function RecordAnsSection({
   interviewQuestions,
@@ -63,7 +64,7 @@ function RecordAnsSection({
       mockIdRef: interviewData?.mockInterviewId,
     });
 
-    alert("Answer Recorded Successfully");
+    toast.success("Answer recorded successfully. Click next question");
     setUserAnswer("");
     setLoading(false);
   };
@@ -71,8 +72,12 @@ function RecordAnsSection({
   const startStopRecording = async () => {
     if (isRecording) {
       stopSpeechToText();
+      if (!userAnswer) {
+        toast.error("Please record your answer before going to next question");
+      }
     } else {
       startSpeechToText();
+      toast("Recording started");
     }
   };
 
@@ -84,7 +89,7 @@ function RecordAnsSection({
   }, [results]);
 
   useEffect(() => {
-    if (!isRecording && userAnswer.length > 10) {
+    if (!isRecording && userAnswer) {
       updateUserAnswer();
     }
   }, [userAnswer]);
