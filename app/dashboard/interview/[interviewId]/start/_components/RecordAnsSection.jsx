@@ -87,7 +87,7 @@ function RecordAnsSection({
 
   useEffect(() => {
     results.map((result) => {
-      setUserAnswer(() => result.transcript);
+      setUserAnswer((prev) => prev + result.transcript);
     });
     console.log(results, "results");
     console.log(userAnswer, "userAnswer");
