@@ -123,9 +123,9 @@ function RecordAnsSection({
         )}
       </button>
       <h2 className="text-red-800 bg-red-200 p-2 mt-1 rounded-md border font-bold text-sm">
-        Please go next question after recording your answer for this question.
-        Go through all questions and record your answers.That is the only way to
-        get feedback for your interview.
+        Please go to next question after recording your answer for this
+        question. Go through all questions and record your answers.That is the
+        only way to get feedback for your interview.
       </h2>
     </div>
   );
