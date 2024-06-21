@@ -3,9 +3,10 @@ import Image from "next/image";
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
 
 export default function Home() {
+  const { user } = useUser();
   const router = useRouter();
   return (
     <div>
@@ -16,20 +17,30 @@ export default function Home() {
             Interview <span className="text-bold text-blue-800">AI</span>
           </span>
         </div>
-        <div className="flex gap-5">
+        {!user && (
+          <div className="flex gap-5">
+            <button
+              onClick={() => router.push("/sign-in")}
+              className="bg-blue-500 p-2 rounded-lg text-blue-900 font-bold hover:bg-blue-900 hover:text-white"
+            >
+              Sign In
+            </button>
+            <button
+              onClick={() => router.push("/sign-up")}
+              className="border border-black p-2 rounded-lg text-blue-900 font-bold hover:bg-blue-500 hover:text-white"
+            >
+              Sign Up
+            </button>
+          </div>
+        )}
+        {user && (
           <button
-            onClick={() => router.push("sign-in")}
-            className="bg-blue-500 p-2 rounded-lg text-blue-900 font-bold"
+            onClick={() => router.push("/dashboard")}
+            className="border border-black p-2 rounded-lg text-blue-900 font-bold hover:bg-blue-500 hover:text-white"
           >
-            Sign In
+            Dashborad
           </button>
-          <button
-            onClick={() => router.push("sign-up")}
-            className="border border-black p-2 rounded-lg text-blue-900 font-bold"
-          >
-            Sign Up
-          </button>
-        </div>
+        )}
       </div>
       <div className=" flex flex-grow  flex-col items-center justify-center mt-10 p-5">
         <h1 className="text-[30px] text-center font-bold lg:text-[50px]">
