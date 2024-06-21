@@ -2,7 +2,8 @@
 import React, { useEffect } from "react";
 import { db } from "../../../../../utils/db";
 import { UserAnswer } from "../../../../../utils/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -24,7 +25,7 @@ function Feedback({ params }) {
       .select()
       .from(UserAnswer)
       .where(eq(UserAnswer.mockIdRef, params.interviewId))
-      .orderBy(UserAnswer.id);
+      .orderBy(desc(UserAnswer.id));
     console.log(result, "result");
     setFeedbackList(result);
   };
@@ -45,7 +46,17 @@ function Feedback({ params }) {
       {feedbackList.length > 0 && (
         <>
           <h2 className="text-lg font-semibold text-red-500 my-3 ">
-            Your overall interview rating : <strong>4.5/5</strong>
+            Your overall interview rating :{" "}
+            <strong>
+              {(() => {
+                let sum = 0;
+                feedbackList.forEach((item) => {
+                  sum += item.rating / 5;
+                });
+                return (sum / feedbackList.length).toFixed(2); // Assuming you want to format the average to 2 decimal places
+              })()}
+            </strong>
+            /5
           </h2>
 
           <h2 className="test-sm text-stone-500">
@@ -59,6 +70,7 @@ function Feedback({ params }) {
                   <h2>
                     <strong>Question: </strong>
                     {item.question || item.Question}{" "}
+                    <span> {"(" + item.createdAt + ")"}</span>
                   </h2>
                   <ChevronsUpDown className="h-5 w-5" />
                 </CollapsibleTrigger>
